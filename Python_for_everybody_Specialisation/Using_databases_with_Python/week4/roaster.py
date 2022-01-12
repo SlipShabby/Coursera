@@ -29,7 +29,7 @@ CREATE TABLE Member (
 
 fname = input('Enter file name: ')
 if len(fname) < 1:
-    fname = 'roaster_data_sample.json'
+    fname = 'roster_data_sample.json'
 
 str_data = open(fname).read()
 json_data = json.loads(str_data)
