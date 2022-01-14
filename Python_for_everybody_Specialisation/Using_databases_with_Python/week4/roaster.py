@@ -29,7 +29,7 @@ CREATE TABLE Member (
 
 fname = input('Enter file name: ')
 if len(fname) < 1:
-    fname = 'roster_data_sample.json'
+    fname = 'roster_data.json'
 
 str_data = open(fname).read()
 json_data = json.loads(str_data)
@@ -37,8 +37,9 @@ json_data = json.loads(str_data)
 for i in json_data:
     name = i[0]
     title = i[1]
+    role = i[2]
 
-    print((name,title))
+    print((name,title, role))
 
     cur.execute('''INSERT OR IGNORE INTO User (name)
         VALUES ( ? )''', ( name, ) )
@@ -51,7 +52,7 @@ for i in json_data:
     course_id = cur.fetchone()[0]
 
     cur.execute('''INSERT OR REPLACE INTO Member
-        (user_id, course_id) VALUES ( ?, ? )''',
-        ( user_id, course_id ) )
+        (user_id, course_id, role) VALUES ( ?, ? , ?)''',
+        ( user_id, course_id, role) )
 
     conn.commit()

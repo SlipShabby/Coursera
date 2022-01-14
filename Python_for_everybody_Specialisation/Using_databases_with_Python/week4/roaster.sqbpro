@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/macbookpro/Desktop/Coding/SlipshabbyGit/Coursera_specs/Python_for_everybody_Specialisation/Using_databases_with_Python/week4/roaster.sqlite" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="799"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 2">CREATE TABLE Artist (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name    TEXT UNIQUE
+);
+
+CREATE TABLE Genre (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name    TEXT UNIQUE
+);
+
+CREATE TABLE Album (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    artist_id  INTEGER,
+    title   TEXT UNIQUE
+);
+
+CREATE TABLE Track (
+    id  INTEGER NOT NULL PRIMARY KEY 
+        AUTOINCREMENT UNIQUE,
+    title TEXT  UNIQUE,
+    album_id  INTEGER,
+    genre_id  INTEGER,
+    len INTEGER, rating INTEGER, count INTEGER
+);</sql><sql name="SQL 3">SELECT Track.title, Artist.name, Album.title, Genre.name 
+    FROM Track JOIN Genre JOIN Album JOIN Artist 
+    ON Track.genre_id = Genre.ID and Track.album_id = Album.id 
+        AND Album.artist_id = Artist.id
+    ORDER BY Artist.name LIMIT 3
+</sql><sql name="SQL 4">SELECT User.name,Course.title, Member.role FROM 
+    User JOIN Member JOIN Course 
+    ON User.id = Member.user_id AND Member.course_id = Course.id
+    ORDER BY User.name DESC, Course.title DESC, Member.role DESC LIMIT 2;</sql><sql name="SQL 5">SELECT 'XYZZY' || hex(User.name || Course.title || Member.role ) AS X FROM 
+    User JOIN Member JOIN Course 
+    ON User.id = Member.user_id AND Member.course_id = Course.id
+    ORDER BY X LIMIT 1;</sql><current_tab id="3"/></tab_sql></sqlb_project>
