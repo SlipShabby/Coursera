@@ -40,5 +40,5 @@ SELECT  AlbumID,
         COUNT(*) as New
 FROM    tracks
 GROUP BY AlbumId
-HAVING New >=12
+HAVING New >=12;
 
