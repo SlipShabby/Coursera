@@ -141,5 +141,17 @@ FROM
 ) item_level
 GROUP BY
   test_assignment;
+
+--Use the https://thumbtack.github.io/abba/demo/abba.html to compute the lifts in metrics and the p-values for the binary metrics ( 30 day order binary and 30 day view binary) using a interval 95% confidence. 
+
+-- 30 day order binary: 
+-- lift: -10% – 12%, p.value 0.86. nonsignificant change. 
+
+-- 30 day view binary:
+-- lift: -2.1% – 5.9%, p-value 0.36. 	nonsignificant change. 
+
+-- for item_test_2 there is no difference in views/orders  between control and treatment groups
+
+
   
   
