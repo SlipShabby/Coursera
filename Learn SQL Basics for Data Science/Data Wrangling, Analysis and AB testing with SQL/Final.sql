@@ -59,3 +59,32 @@ SELECT item_id,
        CAST('2020-01-01' AS date) AS test_start_date
 FROM dsv1069.final_assignments_qa;
 
+-- Use this table to 
+-- compute order_binary for the 30 day window after the test_start_date
+-- for the test named item_test_2
+
+-- 
+SELECT test_assignment,
+       test_number,
+       COUNT(DISTINCT item) AS number_of_items,
+       SUM(order_binary_30d) AS ordered_items_30days
+FROM
+  (SELECT final_assignments.item_id AS item,
+          test_assignment,
+          test_number,
+          test_start_date,
+          MAX((CASE
+                   WHEN date(created_at) - date(test_start_date) BETWEEN 0 AND 30 THEN 1
+                   ELSE 0
+               END)) AS order_binary_30d
+   FROM dsv1069.final_assignments
+   LEFT JOIN dsv1069.orders
+     ON final_assignments.item_id = orders.item_id
+   WHERE test_number = 'item_test_2'
+   GROUP BY final_assignments.item_id,
+            test_assignment,
+            test_number,
+            test_start_date) AS order_binary_30d
+GROUP BY test_assignment,
+         test_number,
+         test_start_date;
