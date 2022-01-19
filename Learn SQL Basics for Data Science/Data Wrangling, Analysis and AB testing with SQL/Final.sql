@@ -152,6 +152,7 @@ GROUP BY
 
 -- for item_test_2 there is no difference in views/orders  between control and treatment groups
 
+-- Report: https://app.mode.com/jaan/reports/044f05879f50/runs/962bedd164ba
 
   
   
