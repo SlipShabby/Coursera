@@ -88,3 +88,58 @@ FROM
 GROUP BY test_assignment,
          test_number,
          test_start_date;
+
+-- Use this table to 
+-- compute view_binary for the 30 day window after the test_start_date
+-- for the test named item_test_2
+
+SELECT 
+  test_assignment,
+  COUNT(DISTINCT item_id) AS items,
+  SUM(view_binary_30days) AS viewed_items_30_days,
+  SUM(views) as views,
+  SUM(views)/COUNT(item_id) AS avg_views_per_item,
+  CAST(100*SUM(view_binary_30days)/COUNT(item_id) AS FLOAT) AS views_percent
+  
+FROM 
+(
+SELECT 
+  assignments.item_id,
+  assignments.test_assignment,
+  MAX(CASE WHEN views.event_time > assignments.test_start_date
+    THEN 1
+    ELSE 0
+    END) AS view_binary_30days,
+  COUNT(views.event_id) as views
+FROM 
+  dsv1069.final_assignments AS assignments
+  
+  LEFT OUTER JOIN 
+  (
+    SELECT 
+      event_time,
+      event_id,
+      CAST(parameter_value AS INT) AS item_id
+    FROM
+      dsv1069.events
+    WHERE 
+      event_name = 'view_item'
+    AND
+      parameter_name = 'item_id'
+  ) views
+  ON 
+    assignments.item_id = views.item_id 
+  AND
+    views.event_time >= assignments.test_start_date
+  AND
+    DATE_PART('day', views.event_time - assignments.test_start_date) <= 30
+  WHERE 
+    assignments.test_number = 'item_test_2'
+  GROUP BY 
+    assignments.item_id,
+    assignments.test_assignment 
+) item_level
+GROUP BY
+  test_assignment;
+  
+  
