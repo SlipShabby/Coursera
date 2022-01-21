@@ -8,6 +8,8 @@
 
 -- COMMAND ----------
 
+
+
 -- MAGIC %md
 -- MAGIC # Delta Lake
 -- MAGIC ## Module 4 Assignment
