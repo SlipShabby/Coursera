@@ -5,13 +5,13 @@
 --Compare this table to the assignment events we captured for user_level_testing.
 --Does this table have everything you need to compute metrics like 30-day view-binary?
 
+
 SELECT 
   * 
 FROM 
   dsv1069.final_assignments_qa;
   
 -- I also need date and time of the assignment
-
 
 
 --Reformat the final_assignments_qa to look like the final_assignments table, filling in any missing values with a placeholder of the appropriate data type.
@@ -155,4 +155,4 @@ GROUP BY
 -- Report: https://app.mode.com/jaan/reports/044f05879f50/runs/962bedd164ba
 
   
-  
+-- Also take a look at summary pdf
